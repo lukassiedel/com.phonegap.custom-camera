@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    
+    <string name="app_name">PluginTest</string>
+    <string name="btn_capture">Foto machen</string>
+    <string name="btn_capture2">Schwarz/Weiß Foto machen</string>
+    
+</resources>
