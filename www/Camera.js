@@ -65,7 +65,7 @@ cameraExport.getPicture = function (successCallback, errorCallback, options) {
         mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection];
     console.log(args);
 
-    exec(successCallback, errorCallback, "CameraPlugin", "takePicture", args);
+    exec(successCallback, errorCallback, "Camera", "takePicture", args);
     console.log(options);
     return new CameraPopoverHandle();
 
@@ -74,7 +74,7 @@ cameraExport.getPicture = function (successCallback, errorCallback, options) {
 };
 
 cameraExport.cleanup = function (successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "CameraPlugin", "cleanup", []);
+    exec(successCallback, errorCallback, "Camera", "cleanup", []);
 };
 
 module.exports = cameraExport;
