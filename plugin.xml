@@ -5,11 +5,6 @@
         id="com.phonegap.customcamera"
         version="0.1.0">
     <name>CameraPlugin</name>
-    <description>Phonegap Custom Camera</description>
-    <license>Phonegap Custom Camera</license>
-    <keywords>cordova,camera, custom</keywords>
-    <!--<repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git</repo>-->
-    <!--<issue>https://issues.apache.org/jira/browse/CB/component/12320645</issue>-->
 
     <js-module src="www/CameraConstants.js" name="Camera">
         <clobbers target="Camera"/>
@@ -45,7 +40,7 @@
 
         <source-file src="src/android/CamActivity.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="src/android/CameraPlugin.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="src/android/PluginText.java" target-dir="src/com/phonegap/customcamera"/>
+        <source-file src="src/android/PluginTest.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="src/android/Preview.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="res/corner_button.xml" target-dir="res/drawable"/>
         <source-file src="res/round_button.xml" target-dir="res/drawable"/>
