@@ -44,7 +44,7 @@
         </config-file>
         <source-file src="src/android/CamActivity.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="src/android/CameraPlugin.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="src/android/PluginTest.java" target-dir="src/com/phonegap/customcamera"/>
+        <!--<source-file src="src/android/PluginTest.java" target-dir="src/com/phonegap/customcamera"/>-->
         <source-file src="src/android/Preview.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="res/corner_button.xml" target-dir="res/drawable"/>
         <source-file src="res/round_button.xml" target-dir="res/drawable"/>
