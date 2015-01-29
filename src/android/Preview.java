@@ -1,4 +1,4 @@
- com.phonegap.custom-camera;
+ com.phonegap.customcamera;
 
 /**
  * @author Jose Davis Nidhin

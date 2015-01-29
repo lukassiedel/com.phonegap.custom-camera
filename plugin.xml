@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="com.phonegap.custom-camera"
+        id="com.phonegap.customcamera"
         version="0.1.0">
     <name>CameraPlugin</name>
     <description>Phonegap Custom Camera</description>
@@ -48,7 +48,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Camera">
-                <param name="android-package" value="com.phonegap.custom-camera.CameraPlugin"/>
+                <param name="android-package" value="com.phonegap.customcamera.CameraPlugin"/>
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
@@ -58,15 +58,15 @@
             <uses-feature android:name="android.hardware.camera"/>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="com.phonegap.custom-camera.CamActivity"
-                      android:label="custom-camera"
+            <activity android:name="com.phonegap.customcamera.CamActivity"
+                      android:label="customcamera"
                       ></activity>
         </config-file>
 
-        <source-file src="src/android/CamActivity.java" target-dir="src/com/phonegap/custom-camera"/>
-        <source-file src="src/android/CameraPlugin.java" target-dir="src/com/phonegap/custom-camera"/>
-        <source-file src="src/android/PluginText.java" target-dir="src/com/phonegap/custom-camera"/>
-        <source-file src="src/android/Preview.java" target-dir="src/com/phonegap/custom-camera"/>
+        <source-file src="src/android/CamActivity.java" target-dir="src/com/phonegap/customcamera"/>
+        <source-file src="src/android/CameraPlugin.java" target-dir="src/com/phonegap/customcamera"/>
+        <source-file src="src/android/PluginText.java" target-dir="src/com/phonegap/customcamera"/>
+        <source-file src="src/android/Preview.java" target-dir="src/com/phonegap/customcamera"/>
         <source-file src="res/corner_button.xml" target-dir="res/drawable"/>
         <source-file src="res/round_button.xml" target-dir="res/drawable"/>
         <source-file src="res/main.xml" target-dir="res/layout"/>

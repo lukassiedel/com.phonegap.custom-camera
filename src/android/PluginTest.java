@@ -17,7 +17,7 @@
        under the License.
  */
 
-package  com.phonegap.custom-camera;
+package  com.phonegap.customcamera;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

@@ -17,6 +17,6 @@
          under the License.
 -->
 
-# com.phonegap.custom-camera
+# com.phonegap.customcamera
 
 Plugin documentation: [doc/index.md](doc/index.md)
