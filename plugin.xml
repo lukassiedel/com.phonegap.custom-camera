@@ -34,6 +34,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
                     android:name="com.phonegap.customcamera.CamActivity"
+                    android:screenOrientation="portrait"
                     android:label="customcamera">
             </activity>
         </config-file>
