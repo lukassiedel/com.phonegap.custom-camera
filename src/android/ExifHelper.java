@@ -16,7 +16,7 @@
        specific language governing permissions and limitations
        under the License.
 */
-package com.wezka.nativecamera;
+package com.phonegap.customcamera;
 
 import java.io.IOException;
 

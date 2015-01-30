@@ -15,7 +15,7 @@
  */
 
 
-package com.wezka.nativecamera;
+package com.phonegap.customcamera;
 
 import java.io.File;
 import java.io.FileNotFoundException;

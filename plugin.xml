@@ -23,7 +23,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Camera">
-                <param name="android-package" value="com.wezka.nativecamera.NativeCameraLauncher"/>
+                <param name="android-package" value="com.phonegap.customcamera.NativeCameraLauncher"/>
             </feature>
         </config-file>
 
@@ -36,15 +36,15 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
                     android:label="nativecameraplugin"
-                    android:name="com.wezka.nativecamera.CameraActivity"
+                    android:name="com.phonegap.customcamera.CameraActivity"
                     android:screenOrientation="portrait"
                     android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             </activity>
         </config-file>
 
-        <source-file src="src/android/CameraActivity.java" target-dir="src/com/wezka/nativecameraplugin" />
-        <source-file src="src/android/NativeCameraLauncher.java" target-dir="src/com/wezka/nativecameraplugin" />
-        <source-file src="src/android/ExifHelper.java" target-dir="src/com/wezka/nativecameraplugin" />
+        <source-file src="src/android/CameraActivity.java" target-dir="src/com/phonegap/nativecameraplugin" />
+        <source-file src="src/android/NativeCameraLauncher.java" target-dir="src/com/phonegap/nativecameraplugin" />
+        <source-file src="src/android/ExifHelper.java" target-dir="src/com/phonegap/nativecameraplugin" />
         <source-file src="src/android/nativecameraplugin.xml" target-dir="res/layout" />
         <source-file src="res/btn_shot.png" target-dir="res/drawable" />
         <source-file src="res/btn_flip.png" target-dir="res/drawable" />
