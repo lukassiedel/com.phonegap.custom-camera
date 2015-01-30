@@ -227,6 +227,7 @@ public class CamActivity extends Activity {
 
 	PictureCallback jpegCallback = new PictureCallback() {
 		Log.i("jpeg", "called");
+		
 		public void onPictureTaken(byte[] data, Camera camera) {
 
 			Log.i("jpeg2", "called");
