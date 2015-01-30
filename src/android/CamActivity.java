@@ -97,7 +97,7 @@ public class CamActivity extends Activity {
 			public void onClick(View v) {
 //				preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
 				Log.i("camera", "picture taken");
-				Log.i("camera", camera.takePicture+"");
+				Log.d("camera", camera.takePicture+"");
 				camera.takePicture(shutterCallback, rawCallback, jpegCallback);
 				
 				/* return data to plugin
