@@ -175,8 +175,10 @@ public class NativeCameraLauncher extends CordovaPlugin {
 				Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
 				OutputStream os = this.cordova.getActivity().getContentResolver()
 						.openOutputStream(this.imageUri);
+				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+				bitmap.compress(CompressFormat.JPEG, 70, outStream);
 				bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
-				String imgString = Base64.encodeToString(os.toByteArray(), Base64.NO_WRAP);
+				String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
 
 				os.close();
 
