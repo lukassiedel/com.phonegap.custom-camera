@@ -97,6 +97,7 @@ public class CamActivity extends Activity {
 			public void onClick(View v) {
 //				preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
 				Log.i("camera", "picture taken");
+				Log.i("camera", camera);
 				camera.takePicture(shutterCallback, rawCallback, jpegCallback);
 				
 				/* return data to plugin
@@ -225,8 +226,10 @@ public class CamActivity extends Activity {
 	};
 
 	PictureCallback jpegCallback = new PictureCallback() {
+		Log.i("jpeg", "called");
 		public void onPictureTaken(byte[] data, Camera camera) {
-			
+
+			Log.i("jpeg2", "called");
 			ByteArrayInputStream inStream = new ByteArrayInputStream(data);
 			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 			Bitmap bitmap = BitmapFactory.decodeStream(inStream);
@@ -260,14 +263,19 @@ public class CamActivity extends Activity {
 				bitmap = bitmapClone;
 				
 			}
-			
+
+			Log.i("jpeg3", "called");
 		    bitmap.compress(CompressFormat.JPEG, 70, outStream);
-		    
+
+			Log.i("jpeg4", "called");
 			// get the base 64 string
 			String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
-			
+
+			Log.i("jpeg5", "called");
 			ComponentName name = act.getCallingActivity();
 			Intent returnIntent = new Intent(act, name.getClass());
+
+			Log.i("jpeg6", "called");
 			returnIntent.putExtra("result","data:image/jpeg;base64,"+imgString);
 			setResult(RESULT_OK,returnIntent);
 			finish();
