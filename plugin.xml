@@ -23,36 +23,38 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Camera">
-                <param name="android-package" value="com.phonegap.customcamera.CameraPlugin"/>
+                <param name="android-package" value="com.wezka.nativecamera.NativeCameraLauncher"/>
             </feature>
         </config-file>
+
         <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-            <uses-permission android:name="android.permission.CAMERA"/>
-            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
         </config-file>
+
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity
-                    android:name="com.phonegap.customcamera.CamActivity"
+                    android:label="nativecameraplugin"
+                    android:name="com.wezka.nativecamera.CameraActivity"
                     android:screenOrientation="portrait"
-                    android:label="customcamera">
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             </activity>
         </config-file>
-        <config-file target="res/values/strings.xml" parent="/*">
-            <string name="app_name">PluginTest</string>
-            <string name="btn_capture">Foto machen</string>
-            <string name="btn_capture2">Schwarz/Weiß Foto machen</string>
-        </config-file>
-        <source-file src="src/android/CamActivity.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="src/android/CameraPlugin.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="src/android/PluginTest.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="src/android/Preview.java" target-dir="src/com/phonegap/customcamera"/>
-        <source-file src="res/corner_button.xml" target-dir="res/drawable"/>
-        <source-file src="res/round_button.xml" target-dir="res/drawable"/>
-        <source-file src="res/main.xml" target-dir="res/layout"/>
+
+        <source-file src="src/android/CameraActivity.java" target-dir="src/com/wezka/nativecameraplugin" />
+        <source-file src="src/android/NativeCameraLauncher.java" target-dir="src/com/wezka/nativecameraplugin" />
+        <source-file src="src/android/ExifHelper.java" target-dir="src/com/wezka/nativecameraplugin" />
+        <source-file src="src/android/nativecameraplugin.xml" target-dir="res/layout" />
+        <source-file src="res/btn_shot.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flip.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_on.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_no.png" target-dir="res/drawable" />
+        <source-file src="res/btn_flash_auto.png" target-dir="res/drawable" />
+        <source-file src="res/viewfinder.png" target-dir="res/drawable" />
 
         <js-module src="www/CameraPopoverHandle.js" name="CameraPopoverHandle">
-            <clobbers target="CameraPopoverHandle"/>
+            <clobbers target="CameraPopoverHandle" />
         </js-module>
 
     </platform>
