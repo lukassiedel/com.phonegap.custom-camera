@@ -275,6 +275,7 @@ public class CamActivity extends Activity {
 			Intent returnIntent = new Intent(act, name.getClass());
 
 			Log.i("jpeg6", "called");
+			Log.i("jpeg7", imgString);
 			returnIntent.putExtra("result","data:image/jpeg;base64,"+imgString);
 			setResult(RESULT_OK,returnIntent);
 			finish();
