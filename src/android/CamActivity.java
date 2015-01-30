@@ -226,11 +226,9 @@ public class CamActivity extends Activity {
 	};
 
 	PictureCallback jpegCallback = new PictureCallback() {
-
-import android.util.Log;
 		public void onPictureTaken(byte[] data, Camera camera) {
 
-			Log.i("jpeg2", "called");
+			Log.d("jpeg2", "called");
 			ByteArrayInputStream inStream = new ByteArrayInputStream(data);
 			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 			Bitmap bitmap = BitmapFactory.decodeStream(inStream);
