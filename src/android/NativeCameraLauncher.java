@@ -139,20 +139,20 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
-			int rotate = 0;
-			try {
-				// Create an ExifHelper to save the exif data that is lost
-				// during compression
-				ExifHelper exif = new ExifHelper();
-				exif.createInFile(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext())
-						+ "/Pic-" + this.date + ".jpg");
-				exif.readExifData();
-				/*Auskommentiert weil es immer auf Querformat gedreht hat*/
-				//rotate = exif.getOrientation();
-
-				// Read in bitmap of captured image
-				Bitmap bitmap;
-				try {
+        			int rotate =0;
+        			try {
+        				// Create an ExifHelper to save the exif data that is lost
+        				// during compression
+        				ExifHelper exif = new ExifHelper();
+        				exif.createInFile(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext())
+        						+ "/Pic-" + this.date + ".jpg");
+        				exif.readExifData();
+        				/*Auskommentiert weil es immer auf Querformat gedreht hat*/
+        				// rotate = exif.getOrientation();
+        				rotate = 90;
+        				// Read in bitmap of captured image
+        				Bitmap bitmap;
+        				try {
 					bitmap = android.provider.MediaStore.Images.Media
 							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
 				} catch (FileNotFoundException e) {
