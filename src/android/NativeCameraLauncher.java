@@ -56,6 +56,7 @@ import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.WindowManager;
 
 /**
  * This class launches the camera view, allows the user to take a picture,
@@ -139,7 +140,11 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
-        			int rotate =0;
+			 WindowManager windowManager =  (WindowManager) this.cordova.getActivity().getApplicationContext().getSystemService(this.cordova.getActivity().getApplicationContext().WINDOW_SERVICE);
+			 int rotation = windowManager.getDefaultDisplay().getRotation();
+
+			 Log.i("orientation", rotation+" rotation");
+        			int rotate =rotation;
         			try {
         				// Create an ExifHelper to save the exif data that is lost
         				// during compression
@@ -148,13 +153,18 @@ public class NativeCameraLauncher extends CordovaPlugin {
         						+ "/Pic-" + this.date + ".jpg");
         				exif.readExifData();
         				/*Auskommentiert weil es immer auf Querformat gedreht hat*/
-        				// rotate = exif.getOrientation();
-        				rotate = 90;
+//        				 rotate = exif.getOrientation();
+        				 Log.i("orientation", rotate+" ");
+//        				rotate = 90;
         				// Read in bitmap of captured image
         				Bitmap bitmap;
         				try {
 					bitmap = android.provider.MediaStore.Images.Media
 							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
+					 Log.i("orientation", bitmap.getWidth()+" "+ bitmap.getHeight());
+					if(bitmap.getWidth()>bitmap.getHeight()){
+						rotate = rotate +90;
+					}
 				} catch (FileNotFoundException e) {
 					Uri uri = intent.getData();
 					android.content.ContentResolver resolver = this.cordova.getActivity().getContentResolver();
