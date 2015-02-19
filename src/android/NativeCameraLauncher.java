@@ -106,7 +106,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 				this.targetHeight = args.getInt(4);
 				this.targetWidth = args.getInt(3);
 				this.mQuality = args.getInt(0);
-				this.captureButtonColor = args.getInt(12);
+				this.captureButtonColor = args.getString(12);
 				this.takePicture();
 				PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
 				r.setKeepCallback(true);
