@@ -90,7 +90,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	}
 
 	void cancelPicture(){
-		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "canceled"));
+		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
 	}
 	
 	@Override
@@ -106,7 +106,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 				this.targetHeight = args.getInt(4);
 				this.targetWidth = args.getInt(3);
 				this.mQuality = args.getInt(0);
-				this.captureButtonColor = "#00A3FF";//args.getInt(5);
+				this.captureButtonColor = args.getInt(12);
 				this.takePicture();
 				PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
 				r.setKeepCallback(true);
