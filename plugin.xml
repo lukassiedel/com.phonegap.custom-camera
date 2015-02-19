@@ -54,6 +54,7 @@
         <source-file src="res/btn_flash_on.png" target-dir="res/drawable" />
         <source-file src="res/btn_flash_no.png" target-dir="res/drawable" />
         <source-file src="res/btn_flash_auto.png" target-dir="res/drawable" />
+
         <source-file src="res/btn_back.png" target-dir="res/drawable" />
         <source-file src="res/viewfinder.png" target-dir="res/drawable" />
 

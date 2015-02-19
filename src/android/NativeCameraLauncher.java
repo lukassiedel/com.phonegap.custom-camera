@@ -76,7 +76,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	private static final String _DATA = "_data";
 	private CallbackContext callbackContext;
 	private String date = null;
-	
+
 	private String captureButtonColor;
 	
 	private static int CAMERA_CANCELD = 12345;
@@ -88,7 +88,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	void failPicture(String reason) {
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, reason));
 	}
-	
+
 	void cancelPicture(){
 		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "canceled"));
 	}
@@ -224,6 +224,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 		else if (resultCode == Activity.RESULT_CANCELED) {
 			this.failPicture("Camera cancelled.");
 		}
+
 		// back button clicked
 		else if (resultCode == CAMERA_CANCELD) {
 			this.cancelPicture();

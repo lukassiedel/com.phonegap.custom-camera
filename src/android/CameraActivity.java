@@ -84,7 +84,7 @@ public class CameraActivity extends Activity implements SensorEventListener {
     private int screenHeight;
 
     private float viewfinderHalfPx;
-	
+
 	private static int CAMERA_CANCELD = 12345;
 	private static String CAPTURE_BUTTON_COLOR_ID = "capture_button_color";
 	
@@ -120,17 +120,17 @@ public class CameraActivity extends Activity implements SensorEventListener {
             isFlash = true;
         } else {
             //flashButton.setVisibility(View.INVISIBLE);
-            isFlash = false;
+            isFlash = true;
         }
-
+        
         if(Camera.getNumberOfCameras() > 1){
             //flipCamera.setVisibility(View.VISIBLE);
             isFrontCamera = true;
         } else {
             //flipCamera.setVisibility(View.INVISIBLE);
-            isFrontCamera = false;
+            isFrontCamera = true;
         }
-
+        
         Display display = getWindowManager().getDefaultDisplay();
         // Necessary to use deprecated methods for Android 2.x support
         screenWidth = display.getWidth();
