@@ -198,7 +198,6 @@ public class NativeCameraLauncher extends CordovaPlugin {
         				try {
 					bitmap = android.provider.MediaStore.Images.Media
 							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
-					bitmap = convertBW(bitmap);
 					 Log.i("orientation", bitmap.getWidth()+" "+ bitmap.getHeight());
 					if(bitmap.getWidth()>bitmap.getHeight()){
 						rotate = rotate +90;
