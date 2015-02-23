@@ -160,19 +160,18 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	    Bitmap bitmapClone = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
 	    
 	    for (int h = 0; h < height; h++) {
-	     for (int w = 0; w < width; w++) {
-	      
-	      int pixel = original.getPixel(w,h);
-
-	      int redValue = (int)(Color.red(pixel)*redFactor);
-	      int greenValue = (int)(Color.green(pixel)*greenFactor);
-	      int blueValue = (int)(Color.blue(pixel)*blueFactor);
-	      
-	      int combinedValue = redValue+greenValue+blueValue;
-	      bitmapClone.setPixel(w, h, Color.argb(combinedValue,0,0,0));
-	      
-	     }
-	     return bitmapClone;
+	     for (int w = 0; w < width; w++) {	      
+		      int pixel = original.getPixel(w,h);
+	
+		      int redValue = (int)(Color.red(pixel)*redFactor);
+		      int greenValue = (int)(Color.green(pixel)*greenFactor);
+		      int blueValue = (int)(Color.blue(pixel)*blueFactor);
+		      
+		      int combinedValue = redValue+greenValue+blueValue;
+		      bitmapClone.setPixel(w, h, Color.argb(combinedValue,0,0,0));
+		      
+		     }
+	     }	     return bitmapClone;
 	}
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
