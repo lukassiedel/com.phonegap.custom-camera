@@ -147,7 +147,33 @@ public class NativeCameraLauncher extends CordovaPlugin {
 		File photo = new File(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext()), "Pic-" + this.date + ".jpg");
 		return photo;
 	}
+	public Bitmap convertBW(Bitmap original){
+	
+		
+		int height = original.getHeight();
+	    int width = original.getWidth();
+	    
+	    double redFactor = 0.33;
+	    double greenFactor = 0.59;
+	    double blueFactor = 0.11;
+	    
+	    Bitmap bitmapClone = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
+	    
+	    for (int h = 0; h < height; h++) {
+	     for (int w = 0; w < width; w++) {
+	      
+	      int pixel = bitmap.getPixel(w,h);
 
+	      int redValue = (int)(Color.red(pixel)*redFactor);
+	      int greenValue = (int)(Color.green(pixel)*greenFactor);
+	      int blueValue = (int)(Color.blue(pixel)*blueFactor);
+	      
+	      int combinedValue = redValue+greenValue+blueValue;
+	      bitmapClone.setPixel(w, h, Color.rgb(0,0,0, combinedValue));
+	      
+	     }
+	     return bitmapClone;
+	}
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
@@ -172,6 +198,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
         				try {
 					bitmap = android.provider.MediaStore.Images.Media
 							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
+					bitmap = convertBW(bitmap);
 					 Log.i("orientation", bitmap.getWidth()+" "+ bitmap.getHeight());
 					if(bitmap.getWidth()>bitmap.getHeight()){
 						rotate = rotate +90;
