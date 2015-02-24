@@ -51,6 +51,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.os.Bundle;
@@ -147,7 +148,32 @@ public class NativeCameraLauncher extends CordovaPlugin {
 		File photo = new File(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext()), "Pic-" + this.date + ".jpg");
 		return photo;
 	}
-
+	public Bitmap convertBW(Bitmap original){
+	
+		
+		int height = original.getHeight();
+	    int width = original.getWidth();
+	    
+	    double redFactor = 0.33;
+	    double greenFactor = 0.59;
+	    double blueFactor = 0.11;
+	    
+	    Bitmap bitmapClone = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
+	    
+	    for (int h = 0; h < height; h++) {
+	     for (int w = 0; w < width; w++) {	      
+		      int pixel = original.getPixel(w,h);
+	
+		      int redValue = (int)(Color.red(pixel)*redFactor);
+		      int greenValue = (int)(Color.green(pixel)*greenFactor);
+		      int blueValue = (int)(Color.blue(pixel)*blueFactor);
+		      
+		      int combinedValue = redValue+greenValue+blueValue;
+		      bitmapClone.setPixel(w, h, Color.argb(combinedValue,0,0,0));
+		      
+		     }
+	     }	     return bitmapClone;
+	}
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
