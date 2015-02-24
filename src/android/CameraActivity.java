@@ -47,6 +47,7 @@ import android.hardware.Camera.PictureCallback;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -84,10 +85,12 @@ public class CameraActivity extends Activity implements SensorEventListener {
     private int screenHeight;
 
     private float viewfinderHalfPx;
-
+	
 	private static int CAMERA_CANCELD = 12345;
 	private static String CAPTURE_BUTTON_COLOR_ID = "capture_button_color";
-	
+
+	private ProgressBar progressBar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,22 +123,23 @@ public class CameraActivity extends Activity implements SensorEventListener {
             isFlash = true;
         } else {
             //flashButton.setVisibility(View.INVISIBLE);
-            isFlash = true;
+            isFlash = false;
         }
-        
+
         if(Camera.getNumberOfCameras() > 1){
             //flipCamera.setVisibility(View.VISIBLE);
             isFrontCamera = true;
         } else {
             //flipCamera.setVisibility(View.INVISIBLE);
-            isFrontCamera = true;
+            isFrontCamera = false;
         }
-        
+
         Display display = getWindowManager().getDefaultDisplay();
         // Necessary to use deprecated methods for Android 2.x support
         screenWidth = display.getWidth();
         screenHeight = display.getHeight();
 
+        progressBar = (ProgressBar)findViewById(getResources().getIdentifier("progressBar", "id", getPackageName()));
 
         focusButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -254,7 +258,9 @@ public class CameraActivity extends Activity implements SensorEventListener {
             public void onClick(View v) {
                 if (pressed || camera == null)
                     return;
-                
+
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+
                 Parameters p = camera.getParameters();
                 p.setRotation(degrees);
                 camera.setParameters(p);
