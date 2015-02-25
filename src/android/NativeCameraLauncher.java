@@ -51,7 +51,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.os.Bundle;
@@ -148,39 +147,14 @@ public class NativeCameraLauncher extends CordovaPlugin {
 		File photo = new File(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext()), "Pic-" + this.date + ".jpg");
 		return photo;
 	}
-	public Bitmap convertBW(Bitmap original){
-	
-		
-		int height = original.getHeight();
-	    int width = original.getWidth();
-	    
-	    double redFactor = 0.33;
-	    double greenFactor = 0.59;
-	    double blueFactor = 0.11;
-	    
-	    Bitmap bitmapClone = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
-	    
-	    for (int h = 0; h < height; h++) {
-	     for (int w = 0; w < width; w++) {	      
-		      int pixel = original.getPixel(w,h);
-	
-		      int redValue = (int)(Color.red(pixel)*redFactor);
-		      int greenValue = (int)(Color.green(pixel)*greenFactor);
-		      int blueValue = (int)(Color.blue(pixel)*blueFactor);
-		      
-		      int combinedValue = redValue+greenValue+blueValue;
-		      bitmapClone.setPixel(w, h, Color.argb(combinedValue,0,0,0));
-		      
-		     }
-	     }	     return bitmapClone;
-	}
+
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
 			 WindowManager windowManager =  (WindowManager) this.cordova.getActivity().getApplicationContext().getSystemService(this.cordova.getActivity().getApplicationContext().WINDOW_SERVICE);
 			 int rotation = windowManager.getDefaultDisplay().getRotation();
 
-			 Log.i("orientation", rotation+" rotation");
+			 //Log.i("orientation", rotation+" rotation");
         			int rotate =rotation;
         			try {
         				// Create an ExifHelper to save the exif data that is lost
@@ -220,15 +194,15 @@ public class NativeCameraLauncher extends CordovaPlugin {
 				// Add compressed version of captured image to returned media
 				// store Uri
 				bitmap = getRotatedBitmap(rotate, bitmap, exif);
-				Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
-				OutputStream os = this.cordova.getActivity().getContentResolver()
-						.openOutputStream(this.imageUri);
+				//Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
+				/*OutputStream os = this.cordova.getActivity().getContentResolver()
+						.openOutputStream(this.imageUri);*/
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, 50, outStream);
-				bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
+				bitmap.compress(CompressFormat.JPEG, this.mQuality, outStream);
+				//bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
 				String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
 
-				os.close();
+				//os.close();
 
 				// Restore exif data to file
 				exif.createOutFile(this.imageUri.getPath());
