@@ -49,6 +49,11 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.widget.ProgressBar;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -90,6 +95,10 @@ public class CameraActivity extends Activity implements SensorEventListener {
 	private static String CAPTURE_BUTTON_COLOR_ID = "capture_button_color";
 
 	private ProgressBar progressBar;
+
+    public interface SensorCallback {
+      public void callback(SensorEvent event);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -288,6 +297,41 @@ public class CameraActivity extends Activity implements SensorEventListener {
                 }            
             }
         });
+
+        // measure brightness
+
+        getBrightness(new SensorCallback() {
+
+            @Override
+            public void callback(SensorEvent event) {
+                //Log.i("sensor", String.valueOf(event.values[0]));
+                TextView pro = (TextView)findViewById(R.id.brightnessIndicator);
+                pro.setText("lux: "+String.valueOf(event.values[0]));
+            }
+
+        });
+
+    }
+
+    private void getBrightness(final SensorCallback sensorc){
+
+        Sensor lightSensor = sm.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        SensorEventListener listener = new SensorEventListener() {
+
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                sensorc.callback(event);
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                // TODO Auto-generated method stub
+            }
+
+        };
+
+        sm.registerListener(listener, lightSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
     }
 
