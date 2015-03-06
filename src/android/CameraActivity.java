@@ -62,7 +62,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CameraActivity extends Activity implements SensorEventListener {
+public class CameraActivity extends Activity implements SensorEventListener, CostumVariablesInterface {
 
     private static final String TAG = "CameraActivity";
 
@@ -91,9 +91,8 @@ public class CameraActivity extends Activity implements SensorEventListener {
 
     private float viewfinderHalfPx;
 	
-	private static int CAMERA_CANCELD = 12345;
-	private static String CAPTURE_BUTTON_COLOR_ID = "capture_button_color";
-
+	private float brightnessThreshold;
+	
 	private ProgressBar progressBar;
 
     public interface SensorCallback {
@@ -299,14 +298,32 @@ public class CameraActivity extends Activity implements SensorEventListener {
         });
 
         // measure brightness
-
+		
+		brightnessThreshold = getIntent().getExtras().getFloat(BRIGHTNESS_THRESHOLD_ID);
+		
+		TextView pro = (TextView) findViewById(getResources().getIdentifier("brightnessIndicator", "id", getPackageName()));
+	    GradientDrawable bgShape2 = (GradientDrawable)pro.getBackground();
+		bgShape2.setColor(Color.RED);
+		
         getBrightness(new SensorCallback() {
 
             @Override
             public void callback(SensorEvent event) {
-                //Log.i("sensor", String.valueOf(event.values[0]));
-                TextView pro = (TextView)findViewById(R.id.brightnessIndicator);
-                pro.setText("lux: "+String.valueOf(event.values[0]));
+                
+                float currBright = event.values[0];
+                
+                TextView pro = (TextView) findViewById(getResources().getIdentifier("brightnessIndicator", "id", getPackageName()));
+                GradientDrawable bgShape = (GradientDrawable)pro.getBackground();
+        		
+                if(currBright >= brightnessThreshold){
+                	bgShape.setColor(Color.GREEN);
+                }
+                else{
+                	bgShape.setColor(Color.RED);
+                }
+                
+                pro.setText("Lux: "+String.valueOf(currBright));
+                
             }
 
         });

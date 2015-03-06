@@ -45,6 +45,7 @@
         <source-file src="src/android/CameraActivity.java" target-dir="src/com/phonegap/nativecameraplugin" />
         <source-file src="src/android/NativeCameraLauncher.java" target-dir="src/com/phonegap/nativecameraplugin" />
         <source-file src="src/android/ExifHelper.java" target-dir="src/com/phonegap/nativecameraplugin" />
+	<source-file src="src/android/CostumVariablesInterface.java" target-dir="src/com/phonegap/nativecameraplugin" />
         <source-file src="src/android/nativecameraplugin.xml" target-dir="res/layout" />
 
         <source-file src="src/android/round_button.xml" target-dir="res/drawable" />

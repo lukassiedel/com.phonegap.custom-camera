@@ -64,7 +64,7 @@ import android.view.WindowManager;
  * is closed, the screen displayed before the camera view was shown is
  * redisplayed.
  */
-public class NativeCameraLauncher extends CordovaPlugin {
+public class NativeCameraLauncher extends CordovaPlugin implements CostumVariablesInterface{
 
 	private static final String LOG_TAG = "NativeCameraLauncher";
 
@@ -78,10 +78,8 @@ public class NativeCameraLauncher extends CordovaPlugin {
 	private String date = null;
 	
 	private String captureButtonColor;
-	
-	private static int CAMERA_CANCELD = 12345;
-	private static String CAPTURE_BUTTON_COLOR_ID = "capture_button_color";
-	  
+	private float brightnessThreshold;
+
 	public NativeCameraLauncher() {
 	}
 
@@ -107,6 +105,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 				this.targetWidth = args.getInt(3);
 				this.mQuality = args.getInt(0);
 				this.captureButtonColor = args.getString(12);
+				this.brightnessThreshold = (float)args.getDouble(13);
 				this.takePicture();
 				PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
 				r.setKeepCallback(true);
@@ -128,6 +127,7 @@ public class NativeCameraLauncher extends CordovaPlugin {
 		this.imageUri = Uri.fromFile(photo);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri);
 		intent.putExtra(CAPTURE_BUTTON_COLOR_ID, this.captureButtonColor);
+		intent.putExtra(BRIGHTNESS_THRESHOLD_ID, this.brightnessThreshold);
 		this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
 	}
 

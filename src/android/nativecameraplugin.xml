@@ -35,17 +35,22 @@
             android:layout_width="38dp"
             android:layout_marginBottom="30dp"
             android:layout_marginRight="20dp" />
-
-        <TextView
-                android:id="@+id/brightnessIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="26dp"
-                android:text="TextView" />
-
+		
+		<TextView
+		        android:id="@+id/brightnessIndicator"
+		        android:layout_height="64dp"
+		        android:layout_width="64dp"
+		        android:layout_alignParentBottom="true"
+		        android:layout_alignParentLeft="true"
+		        android:layout_marginBottom="20dp"
+		        android:layout_marginLeft="20dp"
+		        android:text="Lux: 1235"
+		        android:textSize="28px"
+		        android:gravity="center"
+		        android:textColor="#000000"
+		        android:padding="1dp"
+		        android:background="@drawable/round_button" />
+        
     </RelativeLayout>
 
     <RelativeLayout

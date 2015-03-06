@@ -61,9 +61,10 @@ cameraExport.getPicture = function (successCallback, errorCallback, options) {
     var popoverOptions = getValue(options.popoverOptions, null);
     var cameraDirection = getValue(options.cameraDirection, Camera.Direction.BACK);
     var captBtnColor = getValue(options.captBtnColor);
+    var brightnessThreshold = getValue(options.brightnessThreshold);
 
     var args = [quality, destinationType, sourceType, targetWidth, targetHeight, encodingType,
-        mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection,captBtnColor];
+        mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection,captBtnColor,brightnessThreshold];
     console.log(args);
 
     exec(successCallback, errorCallback, "Camera", "takePicture", args);
