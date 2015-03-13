@@ -322,7 +322,7 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
                 	bgShape.setColor(Color.RED);
                 }
                 
-                pro.setText("Lux: "+String.valueOf(currBright));
+                pro.setText(String.valueOf(currBright));
                 
             }
 
