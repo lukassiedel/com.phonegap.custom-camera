@@ -257,10 +257,12 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
 		
 		// set background-color of capture-button by defined color 1
 		String capButtonColor = getIntent().getExtras().getString(CAPTURE_BUTTON_COLOR_ID);
+		String capButtonBorderColor = getIntent().getExtras().getString(CAPTURE_BUTTON_BORDER_COLOR_ID);
 		
 		GradientDrawable bgShape = (GradientDrawable)captureButton.getBackground();
 		// example color: "#00A3FF"
 		bgShape.setColor(Color.parseColor(capButtonColor));
+		bgShape.setStroke(10,Color.parseColor(capButtonBorderColor));
 		
         captureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

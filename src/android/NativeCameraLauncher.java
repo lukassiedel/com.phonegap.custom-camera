@@ -78,6 +78,7 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 	private String date = null;
 	
 	private String captureButtonColor;
+	private String captureButtonBorderColor;
 	private float brightnessThreshold;
 
 	public NativeCameraLauncher() {
@@ -105,6 +106,7 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 				this.targetWidth = args.getInt(3);
 				this.mQuality = args.getInt(0);
 				this.captureButtonColor = args.getString(12);
+				this.captureButtonBorderColor = args.getString(14);
 				this.brightnessThreshold = (float)args.getDouble(13);
 				this.takePicture();
 				PluginResult r = new PluginResult(PluginResult.Status.NO_RESULT);
@@ -127,6 +129,7 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 		this.imageUri = Uri.fromFile(photo);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, this.imageUri);
 		intent.putExtra(CAPTURE_BUTTON_COLOR_ID, this.captureButtonColor);
+		intent.putExtra(CAPTURE_BUTTON_BORDER_COLOR_ID, this.captureButtonBorderColor);
 		intent.putExtra(BRIGHTNESS_THRESHOLD_ID, this.brightnessThreshold);
 		this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
 	}
