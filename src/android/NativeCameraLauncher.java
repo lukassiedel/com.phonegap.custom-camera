@@ -64,7 +64,7 @@ import android.view.WindowManager;
  * is closed, the screen displayed before the camera view was shown is
  * redisplayed.
  */
-public class NativeCameraLauncher extends CordovaPlugin implements CostumVariablesInterface{
+public class NativeCameraLauncher extends CordovaPlugin implements CostumVariablesInterface,Runnable{
 
 	private static final String LOG_TAG = "NativeCameraLauncher";
 
@@ -80,7 +80,8 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 	private String captureButtonColor;
 	private String captureButtonBorderColor;
 	private float brightnessThreshold;
-
+	private Intent resultIntent;
+	
 	public NativeCameraLauncher() {
 	}
 
@@ -154,73 +155,11 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		// If image available
 		if (resultCode == Activity.RESULT_OK) {
-			 WindowManager windowManager =  (WindowManager) this.cordova.getActivity().getApplicationContext().getSystemService(this.cordova.getActivity().getApplicationContext().WINDOW_SERVICE);
-			 int rotation = windowManager.getDefaultDisplay().getRotation();
-
-			 //Log.i("orientation", rotation+" rotation");
-        			int rotate =rotation;
-        			try {
-        				// Create an ExifHelper to save the exif data that is lost
-        				// during compression
-        				ExifHelper exif = new ExifHelper();
-        				exif.createInFile(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext())
-        						+ "/Pic-" + this.date + ".jpg");
-        				exif.readExifData();
-        				/*Auskommentiert weil es immer auf Querformat gedreht hat*/
-//        				 rotate = exif.getOrientation();
-        				 Log.i("orientation", rotate+" ");
-//        				rotate = 90;
-        				// Read in bitmap of captured image
-        				Bitmap bitmap;
-        				try {
-					bitmap = android.provider.MediaStore.Images.Media
-							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
-					 Log.i("orientation", bitmap.getWidth()+" "+ bitmap.getHeight());
-					if(bitmap.getWidth()>bitmap.getHeight()){
-						rotate = rotate +90;
-					}
-				} catch (FileNotFoundException e) {
-					Uri uri = intent.getData();
-					android.content.ContentResolver resolver = this.cordova.getActivity().getContentResolver();
-					bitmap = android.graphics.BitmapFactory
-							.decodeStream(resolver.openInputStream(uri));
-				}
-
-				// If bitmap cannot be decoded, this may return null
-				if (bitmap == null) {
-					this.failPicture("Error decoding image.");
-					return;
-				}
-
-				bitmap = scaleBitmap(bitmap);
-
-				// Add compressed version of captured image to returned media
-				// store Uri
-				bitmap = getRotatedBitmap(rotate, bitmap, exif);
-				//Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
-				/*OutputStream os = this.cordova.getActivity().getContentResolver()
-						.openOutputStream(this.imageUri);*/
-				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, this.mQuality, outStream);
-				//bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
-				String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
-
-				//os.close();
-
-				// Restore exif data to file
-				exif.createOutFile(this.imageUri.getPath());
-				exif.writeExifData();
-
-				// Send Uri back to JavaScript for viewing image
-				this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, imgString));
-
-				bitmap.recycle();
-				bitmap = null;
-				System.gc();
-			} catch (IOException e) {
-				e.printStackTrace();
-				this.failPicture("Error capturing image.");
-			}
+			
+			resultIntent = intent;
+			
+			this.cordova.getThreadPool().execute(this);
+            
 		}
 
 		// If cancelled
@@ -317,4 +256,83 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 
 		return cache.getAbsolutePath();
 	}
+	
+	@Override
+    public void run() {
+        
+        WindowManager windowManager =  (WindowManager) this.cordova.getActivity().getApplicationContext().getSystemService(this.cordova.getActivity().getApplicationContext().WINDOW_SERVICE);
+					 int rotation = windowManager.getDefaultDisplay().getRotation();
+		
+		// Read in bitmap of captured image
+		Bitmap bitmap;
+		ExifHelper exif = new ExifHelper();
+
+		 //Log.i("orientation", rotation+" rotation");
+		int rotate =rotation;
+		try {
+				// Create an ExifHelper to save the exif data that is lost
+				// during compression
+				
+				exif.createInFile(getTempDirectoryPath(this.cordova.getActivity().getApplicationContext())
+						+ "/Pic-" + this.date + ".jpg");
+				exif.readExifData();
+				/*Auskommentiert weil es immer auf Querformat gedreht hat*/
+				//  rotate = exif.getOrientation();
+				 Log.i("orientation", rotate+" ");
+				//  rotate = 90;
+				
+				try {
+					bitmap = android.provider.MediaStore.Images.Media
+							.getBitmap(this.cordova.getActivity().getContentResolver(), imageUri);
+					 Log.i("orientation", bitmap.getWidth()+" "+ bitmap.getHeight());
+					if(bitmap.getWidth()>bitmap.getHeight()){
+						rotate = rotate +90;
+					}
+				} catch (FileNotFoundException e) {
+					Uri uri = resultIntent.getData();
+					android.content.ContentResolver resolver = this.cordova.getActivity().getContentResolver();
+					bitmap = android.graphics.BitmapFactory
+							.decodeStream(resolver.openInputStream(uri));
+				}
+				
+		
+				// If bitmap cannot be decoded, this may return null
+				if (bitmap == null) {
+					this.failPicture("Error decoding image.");
+					return;
+				}
+	
+				bitmap = scaleBitmap(bitmap);
+	
+				// Add compressed version of captured image to returned media
+				// store Uri
+				bitmap = getRotatedBitmap(rotate, bitmap, exif);
+				//Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
+				/*OutputStream os = this.cordova.getActivity().getContentResolver()
+						.openOutputStream(this.imageUri);*/
+				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+				bitmap.compress(CompressFormat.JPEG, this.mQuality, outStream);
+				//bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
+				String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
+	
+				//os.close();
+	
+				// Restore exif data to file
+				exif.createOutFile(this.imageUri.getPath());
+				exif.writeExifData();
+	
+				// Send Uri back to JavaScript for viewing image
+				this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, imgString));
+	
+				bitmap.recycle();
+				bitmap = null;
+				System.gc();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+			this.failPicture("Error capturing image.");
+		}
+        
+    }
+    
 }
