@@ -308,21 +308,22 @@ public class NativeCameraLauncher extends CordovaPlugin implements CostumVariabl
 				// store Uri
 				bitmap = getRotatedBitmap(rotate, bitmap, exif);
 				//Log.i(LOG_TAG, "URI: " + this.imageUri.toString());
-				/*OutputStream os = this.cordova.getActivity().getContentResolver()
-						.openOutputStream(this.imageUri);*/
-				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.JPEG, this.mQuality, outStream);
-				//bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
-				String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
+				OutputStream os = this.cordova.getActivity().getContentResolver()
+						.openOutputStream(this.imageUri);
+				// ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+				// bitmap.compress(CompressFormat.JPEG, this.mQuality, outStream);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, this.mQuality, os);
+				// String imgString = Base64.encodeToString(outStream.toByteArray(), Base64.NO_WRAP);
 	
-				//os.close();
+				os.close();
 	
 				// Restore exif data to file
 				exif.createOutFile(this.imageUri.getPath());
 				exif.writeExifData();
 	
 				// Send Uri back to JavaScript for viewing image
-				this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, imgString));
+				this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, this.imageUri.getPath()));
+				// this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, imgString));
 	
 				bitmap.recycle();
 				bitmap = null;
