@@ -35,8 +35,9 @@
             android:layout_width="38dp"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="50dp" />
-		
-		<TextView
+		<!-- 
+			DEACTIVATED
+			<TextView
 		        android:id="@+id/brightnessIndicator"
 		        android:layout_height="48dp"
 		        android:layout_width="48dp"
@@ -50,6 +51,8 @@
 		        android:textColor="#000000"
 		        android:padding="1dp"
 		        android:background="@drawable/round_button" />
+			
+			-->
         
     </RelativeLayout>
 

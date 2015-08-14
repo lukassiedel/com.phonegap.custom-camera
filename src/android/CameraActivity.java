@@ -299,8 +299,9 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
             }
         });
 
-        // measure brightness
-		
+        // measure brightness 
+        // DEACTIVATED
+		/*
 		brightnessThreshold = getIntent().getExtras().getFloat(BRIGHTNESS_THRESHOLD_ID);
 		
 		TextView pro = (TextView) findViewById(getResources().getIdentifier("brightnessIndicator", "id", getPackageName()));
@@ -329,7 +330,7 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
             }
 
         });
-
+		*/
     }
 
     private void getBrightness(final SensorCallback sensorc){
