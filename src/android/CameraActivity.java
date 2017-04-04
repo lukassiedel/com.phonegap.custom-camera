@@ -108,7 +108,7 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
 
         preview = (SurfaceView) findViewById(getResources().getIdentifier("preview", "id", getPackageName()));
         //final Button flipCamera = (Button) findViewById(getResources().getIdentifier("flipCamera", "id", getPackageName()));
-        //final Button flashButton = (Button) findViewById(getResources().getIdentifier("flashButton", "id", getPackageName()));
+        final Button flashButton = (Button) findViewById(getResources().getIdentifier("flashButton", "id", getPackageName()));
         final Button backButton = (Button) findViewById(getResources().getIdentifier("backButton", "id", getPackageName()));
         final Button captureButton = (Button) findViewById(getResources().getIdentifier("captureButton", "id", getPackageName()));
         final ImageView viewfinder = (ImageView) findViewById(getResources().getIdentifier("viewfinder", "id", getPackageName()));
@@ -127,10 +127,10 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         if(getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)){
-            //flashButton.setVisibility(View.VISIBLE);
+            flashButton.setVisibility(View.VISIBLE);
             isFlash = true;
         } else {
-            //flashButton.setVisibility(View.INVISIBLE);
+            flashButton.setVisibility(View.INVISIBLE);
             isFlash = false;
         }
 
@@ -233,7 +233,7 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
         }
 
         if(isFlash) {
-            /*flashButton.setOnClickListener(new View.OnClickListener() {
+            flashButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Parameters p = camera.getParameters();
                     if (led == 0) {
@@ -252,7 +252,7 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
                     camera.setParameters(p);
                     camera.startPreview();
                 }
-            });*/
+            });
         }
 		
 		// set background-color of capture-button by defined color 1
