@@ -48,6 +48,7 @@ import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.widget.ProgressBar;
+import android.view.Surface;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -545,11 +546,33 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
 
     private void startPreview() {
         if (cameraConfigured && camera != null) {
-            camera.setDisplayOrientation(90);
+            //camera.setDisplayOrientation(90);
+            setCameraDisplayOrientation();
             camera.startPreview();
             inPreview = true;
         }
     }
+
+	private void setCameraDisplayOrientation() {
+	   Camera.CameraInfo info = new Camera.CameraInfo();
+	   Camera.getCameraInfo(cam, info);
+	   int rotation = getWindowManager().getDefaultDisplay().getRotation();
+	   int degrees = 0;
+	   switch (rotation) {
+	     case Surface.ROTATION_0: degrees = 0; break;
+	     case Surface.ROTATION_90: degrees = 90; break;
+	     case Surface.ROTATION_180: degrees = 180; break;
+	     case Surface.ROTATION_270: degrees = 270; break;
+	   }
+	   int result;
+	   if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+	     result = (info.orientation + degrees) % 360;
+	     result = (360 - result) % 360;  // compensate the mirror
+	   } else {  // back-facing
+	     result = (info.orientation - degrees + 360) % 360;
+	   }
+	   camera.setDisplayOrientation(result);
+	}
 
     SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
         public void surfaceCreated(SurfaceHolder holder) {
@@ -558,7 +581,8 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
         public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                    int height) {
             if (camera != null) {
-                camera.setDisplayOrientation(90);
+                //camera.setDisplayOrientation(90);
+                setCameraDisplayOrientation();
             }
             initPreview(preview.getHeight());
             startPreview();
@@ -648,7 +672,3 @@ public class CameraActivity extends Activity implements SensorEventListener, Cos
     }
 
 }
-
-
-
-
